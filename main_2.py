@@ -1,3 +1,7 @@
+'''
+Tutorial_2:
+‧為了加入更多的 action 判斷，重構了程式：匯入 util 裡的 Switch (Python 3.10 之後才有 Match case) ，進行函式判斷切換
+'''
 import json
 import os
 

@@ -1,3 +1,10 @@
+'''
+Tutorial_1:
+‧DialogFlow 的 Entity ，定義縣市或鄉鎮 weatherlocation
+‧DialogFlow 的 Intent ，新增「詢問天氣」，並在 Traning Phrases 裡，列出內含 weatherlocation 的語句，並在 Action and Parameters 裡輸入 askWeather
+‧載入 taiwan_districts.json ，並從詢問的 Entity 裡，取得對應的正式網址
+‧查詢 Yam Weather ，回傳當前氣象
+'''
 import json
 import os
 
@@ -29,7 +36,7 @@ def webhook():
 
 def makeWebhookResult(req):
     #askweather的地方是Dialogflow>Intent>Action 取名的內容
-    if req.get("queryResult").get("action") != "askweather":
+    if req.get("queryResult").get("action") != "askWeather":
         return {}
     result = req.get("queryResult")
     parameters = result.get("parameters")
