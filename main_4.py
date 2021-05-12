@@ -1,6 +1,7 @@
 '''
-‧Tutorial_5
-‧新增 services class
+‧Tutorial_4
+‧加入 InlineKeyboardButton, InlineKeyboardMarkup
+‧使用 python-telegram-bot #pip install python-telegram-bot --upgrade
 '''
 import json
 import os
@@ -14,7 +15,6 @@ import telegram
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
 from util import Switch
-from services import Services
 from weather import Zone, Weather
 
 app = Flask(__name__)
@@ -39,33 +39,33 @@ def webhook():
     return r
 
 def askServices(req):
-    services = Services(req)
-    serviceType = services.type
+    result = req.get("queryResult")
+    parameters = result.get("parameters")
+    serviceType = parameters.get("serviceterm")
 
+    
     response = None
-    for case in Switch(serviceType):
-        if case('weather'):
-            print('詢問氣象')
-            response = askWeather(req)
-            break
-        if case('news'):
-            print('詢問新聞')
-            response = askNews(req)
-            break
-        if case('oil_price'):
-            print('詢問油價')
-            response = askOilPrice(req)
-            break
-        if case('price'):
-            print('詢問某商品價格')
-            response = askPrice(req)
-            break
-        if case('services'):
-            print('詢問服務項目')
-            response = services.inlineList(req, bot)
-            break
-        if case():
-            print('無對應動作')
+    speech = None
+    if serviceType == 'services':
+        chat_id = req.get("originalDetectIntentRequest").get("payload").get("data").get("chat").get("id")
+        keyboard = [
+            [
+                InlineKeyboardButton("新聞", callback_data='news'),
+                InlineKeyboardButton("氣象", callback_data='weather'),
+                InlineKeyboardButton("油價", callback_data='oil price'),
+            ],
+            [InlineKeyboardButton("商品詢價(拍賣平台)", callback_data='price')],
+        ]
+
+        replyMarkup = InlineKeyboardMarkup(keyboard)
+
+        bot.sendMessage(chat_id=chat_id, text='請選擇以下服務：', reply_markup=replyMarkup)
+        speech = "已直接在 telegram 回應"
+        response = { 
+            "textToSpeech": speech,
+            "ssml": speech,
+            "displayText": speech
+            }
 
     return response
 
