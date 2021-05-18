@@ -105,6 +105,7 @@ CREATE TABLE `bot_users` (
   `user_nicename` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
   `user_email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
   `user_phone` varchar(100) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
+  `user_created` int(10) NULL DEFAULT NULL,
   `user_status` int(11) NOT NULL DEFAULT '0',
   `display_name` varchar(250) COLLATE utf8mb4_general_ci NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
