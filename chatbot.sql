@@ -50,7 +50,7 @@ ALTER TABLE `bot_chatmeta`
 CREATE TABLE `bot_chats` (
   `ID` bigint(20) UNSIGNED NOT NULL,
   `chat_user` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `chat_datetime` datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
+  `chat_created` INT(10) NULL DEFAULT NULL,
   `chat_ask` text COLLATE utf8mb4_general_ci NOT NULL,  
   `bot_response` longtext COLLATE utf8mb4_general_ci NOT NULL,
   `bot_response_type` varchar(100) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'message',
