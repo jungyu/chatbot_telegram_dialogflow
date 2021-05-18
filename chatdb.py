@@ -12,7 +12,7 @@ import sqlalchemy.schema
 
 class ChatDB(object):
 
-    #資料庫定義(常數)
+    #資料表(常數)
     __bot_options__ = 'bot_options'
     __bot_chatmeta__ = 'bot_chatmeta'
     __bot_chats__ = 'bot_chats'
@@ -59,9 +59,9 @@ class ChatDB(object):
         created = int(time.mktime(datetime.now().timetuple()))
 
         sqlalchemy.Table(self.__bot_users__, self.metadata, autoload=True)
-        DbUser = self.automap.classes[self.__bot_users__]
+        User = self.automap.classes[self.__bot_users__]
 
-        user = DbUser()
+        user = User()
         user.telegram_user_id = data['user_id']
         user.telegram_chat_id = data['chat_id']
         user.user_nicename = data['nicename']
@@ -87,11 +87,11 @@ class ChatDB(object):
     # 查詢使用者基本資料
     def find_user(self, data):
         sqlalchemy.Table(self.__bot_users__, self.metadata, autoload=True)
-        DbUser = self.automap.classes[self.__bot_users__]
+        User = self.automap.classes[self.__bot_users__]
 
-        user = self.session.query(DbUser).filter(
-            DbUser.telegram_user_id == data['user_id'],
-            DbUser.telegram_chat_id == data['chat_id']
+        user = self.session.query(User).filter(
+            User.telegram_user_id == data['user_id'],
+            User.telegram_chat_id == data['chat_id']
         ).first()
         
         if user:
