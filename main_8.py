@@ -3,7 +3,6 @@
 ‧記錄到資料庫
 '''
 import json
-import os
 import configparser
 
 from flask import Flask
@@ -11,7 +10,6 @@ from flask import request
 from flask import make_response
 
 import telegram
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
 from util import Switch
 from services import Services
@@ -186,13 +184,13 @@ def recordToDB(req, res):
     chat = {
         'chat_user': userID,
         'chat_ask': req.get("queryResult").get("queryText"),
-        'bot_response': json.dumps(res),
+        'bot_response': json.dumps(res, ensure_ascii=False),
         'bot_response_type': 'text', 
         'chat_parent': 0,
         'chat_intent': req.get("queryResult").get("intent").get("displayName"),
         'chat_action': req.get("queryResult").get("action"), 
-        'chat_entity': json.dumps(req.get("queryResult").get("parameters")),
-        'chat_context': json.dumps(req.get("queryResult").get("outputContexts"))
+        'chat_entity': json.dumps(req.get("queryResult").get("parameters"), ensure_ascii=False),
+        'chat_context': json.dumps(req.get("queryResult").get("outputContexts"), ensure_ascii=False)
     }
 
     db.create_chat(chat)
