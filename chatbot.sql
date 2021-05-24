@@ -56,6 +56,7 @@ CREATE TABLE `bot_chats` (
   `bot_response_type` varchar(100) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'message',
   `chat_parent` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
   `chat_intent` varchar(255) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
+  `chat_action` varchar(255) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
   `chat_entity` varchar(255) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
   `chat_context` text COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

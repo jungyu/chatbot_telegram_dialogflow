@@ -18,5 +18,5 @@ data = {
 }
 
 #print(db.create_user(data))
-#print(db.find_user(data).ID)
+print(db.find_user(data).ID)
 db.close()

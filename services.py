@@ -6,7 +6,7 @@ class Services(object):
         self.chat_id = None
     
     def inlineList(self, req, bot):
-        self.chat_id = req.get("originalDetectIntentRequest").get("payload").get("data").get("chat").get("id")
+        self.chat_id = req.get("user").get("chat").get("id")
         keyboard = [
             [
                 InlineKeyboardButton("新聞", callback_data='news'),
