@@ -16,6 +16,7 @@ from services import Services
 from weather import Zone, Weather
 from news import News
 from price import OilPrice
+from stock import Stock
 
 from chatdb import ChatDB
 
@@ -61,6 +62,10 @@ def askServices(req):
         if case('price'):
             print('詢問某商品價格')
             response = askPrice(req)
+            break
+        if case('stock'):
+            print('詢問股票行情')
+            response = askStockList(req, bot)
             break
         if case('services'):
             print('詢問服務項目')
@@ -123,6 +128,46 @@ def askOilPrice(req):
 def askPrice(req):
     return None
 
+def askStock(req, bot):
+    s = Stock(req)
+    speech = s.idvStock(req)
+    s.inlineList(req, bot)
+    print("Response:")
+    print(speech)
+    #回傳
+    return { 
+      "textToSpeech": speech,
+      "ssml": speech,
+      "fulfillmentText": speech,
+      "displayText": speech
+    }
+
+def askStockList(req):
+    s = Stock(req)
+    speech = s.stockList(req)
+    print("Response:")
+    print(speech)
+    #回傳
+    return { 
+      "textToSpeech": speech,
+      "ssml": speech,
+      "fulfillmentText": speech,
+      "displayText": speech
+    }
+
+def askStockChart(req, bot):
+    s = Stock(req)
+    speech = s.idvStockChart(req, bot)
+    print("Response:")
+    print(speech)
+    #回傳
+    return { 
+      "textToSpeech": speech,
+      "ssml": speech,
+      "fulfillmentText": speech,
+      "displayText": speech
+    }
+
 
 def doAction(req):
     response = None
@@ -147,6 +192,14 @@ def doAction(req):
         if case('askPrice'):
             print('詢問某商品價格')
             response = askPrice(req)
+            break
+        if case('askStock'):
+            print('詢問股票行情')
+            response = askStock(req, bot)
+            break
+        if case('askStock-chart'):
+            print('查詢股票圖表')
+            response = askStockChart(req, bot)
             break
         if case():
             print('無對應動作')

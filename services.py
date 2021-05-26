@@ -13,7 +13,10 @@ class Services(object):
                 InlineKeyboardButton("氣象", callback_data='weather'),
                 InlineKeyboardButton("油價", callback_data='oil price'),
             ],
-            [InlineKeyboardButton("商品詢價(拍賣平台)", callback_data='price')],
+            [
+                InlineKeyboardButton("商品詢價(拍賣平台)", callback_data='price'),
+                InlineKeyboardButton("股票", callback_data='stock')
+            ],
         ]
 
         replyMarkup = InlineKeyboardMarkup(keyboard)
